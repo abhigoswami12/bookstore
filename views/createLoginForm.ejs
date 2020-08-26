@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+<body> 
+    <div class="form-container">
+        <img class="book-logo" src="/images/bookshelf-svgrepo-com.svg" alt="bookshelf image">
+        <legend>Login</legend>
+        <form class="flex" action="/users/login" method="POST">
+            <input class="email" type="email" name="email" id="" placeholder="Enter your email">
+            <input class="password" type="password" name="password" id="" placeholder="Enter your password">
+            <% if(warn) { %>
+                <p class="flash"><%= warn %></p>
+           <% }%>
+            <input class="btn" type="submit" value="login">
+            
+            <p class="or">OR</p>
+            <p class="login-signup-swap-text">login using <a class="github" href="">Github</a>
+                <a class="google" href="">Google</a>
+            </p>
+        </form>
+        
+
+    </div>
+    <div class="login-signup-swap">
+        <p class="login-signup-swap-text">New customer? <a href="/users/register">Signup</a></p>
+
+    </div>
+</body>
+</html>
