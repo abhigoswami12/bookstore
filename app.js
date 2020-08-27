@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
+var passport = require('passport');
 
 
 var indexRouter = require('./routes/index');
@@ -14,6 +15,8 @@ var usersRouter = require('./routes/users');
 var auth = require('./middlewares/auth');
 
 require('dotenv').config();
+require('./modules/passport')
+
 
 mongoose.connect('mongodb://localhost/bookstore', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, err => console.log("Connected", err ? err : true));
 
@@ -37,9 +40,13 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
+
 app.use(auth.userInfo);
 
 app.use('/', indexRouter);

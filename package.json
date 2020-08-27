@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "npm run css & nodemon ./bin/www",
+    "css": "node-sass --watch public/stylesheets/scss -o public/stylesheets/css"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -15,9 +16,13 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
+    "github": "^14.0.0",
     "http-errors": "~1.6.3",
     "mongoose": "^5.10.0",
     "morgan": "~1.9.1",
-    "node-sass": "^4.14.1"
+    "node-sass": "^4.14.1",
+    "passport": "^0.4.1",
+    "passport-github": "^1.1.0",
+    "passport-google-oauth": "^2.0.0"
   }
 }

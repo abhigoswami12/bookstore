@@ -65,7 +65,7 @@ router.post('/login', async (req, res, next) => {
 })
 
 //logout
-router.get('/logout', async (req, res, next) => {
+router.get('/logout', (req, res, next) => {
   console.log('entered')
   req.session.destroy();
   console.log(req.session)

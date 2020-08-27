@@ -5,8 +5,8 @@ var bcrypt = require('bcrypt');
 var userSchema = new Schema({
     name: { type: String},
     email: { type: String, required: true, unique: true },
-    username: { type: String, required: true, unique: true },
-    password: { type: String },//doubt: Is it okay to remove required: true if I have handled this condition in my routes
+    username: { type: String},
+    password: { type: String },
     github: {
         name: String,
         username: String,
