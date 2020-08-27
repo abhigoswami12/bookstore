@@ -13,7 +13,7 @@ passport.use(
       callbackURL: "/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-      console.log(profile);
+      // console.log(profile);
       var email = profile.emails[0].value;
       // var name = profile.displayName;
       var googleUser = {
@@ -26,13 +26,13 @@ passport.use(
         }
       };
       User.findOne({ email }, (err, user) => {
-          console.log("ENTERED",user)
+          // console.log("ENTERED",user)
         if (err) cb(err, false);
         if (!user) {
           User.create(googleUser, (err, user) => {
             //   console.log("ENTERED HERE");
-              console.log("USER",user);
-              console.log("ERROR", err)
+              // console.log("USER",user);
+              // console.log("ERROR", err)
             if (err) cb(err, false);
             cb(null, user);
           });
@@ -63,7 +63,7 @@ passport.use(
       callbackURL: "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-      console.log(profile);
+      // console.log(profile);
       var email = profile.emails[0].value;
       var githubUser = {
         name: profile.displayName,

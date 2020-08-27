@@ -5,7 +5,8 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  console.log("REQUESTED USER", req.session);
+  res.render('index');
 });
 
 //google routes
@@ -15,7 +16,7 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/users/login' }),
   function (req, res) {
-    res.redirect('/users');
+    res.redirect('/');
   });
 
 
@@ -27,7 +28,7 @@ router.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/users/login' }),
   function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/users');
+    res.redirect('/');
   });
 
 module.exports = router;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,22 +11,20 @@
 
     <title>Register</title>
 </head>
+
 <body>
     <div class="form-container">
         <img class="book-logo" src="/images/bookshelf-svgrepo-com.svg" alt="bookshelf image">
-        <legend>Signup</legend>
-        <form class="flex" action="/users/register" method="POST" >
-            <input class="name" type="text" name="name" id="" placeholder="Name">
-            <input class="username" type="text" name="username" id="" placeholder="Username">
-            <input class="email" type="email" name="email" id="" placeholder="Email">
-            <input class="password" type="password" name="password" id="" placeholder="Password">
-            <% if(warn){ %>
-                <p class="flash"><%= warn %></p>
-            <%}%>
-            <input class="btn" type="submit" value="signup">
-            <p class="login-signup-swap-text">Already a customer? <a href="/users/login">Login</a></p>
+        <legend>Edit Profile</legend>
+        <form class="flex" action="/users/<%= user.id%>/edit-profile" method="POST" enctype="multipart/form-data">
+            <input class="name" type="text" name="name" value="<%= user.name%>">
+            <input class="username" type="text" name="username" value="<%= user.username%>" readonly>
+            <input class="email" type="email" name="email" value="<%= user.email%>" readonly>
+            <input class="btn" type="submit" name="" id="" value="Update User">
+           
         </form>
 
     </div>
 </body>
+
 </html>
