@@ -18,10 +18,10 @@
       <%if(user.isAdmin){ %>
         <a href="/admin">go to admin</a>
      <% }%>
-     <a href="/books/favourites">Go to favourites: <span><%= user.favourites.length%></span></a>
+     <a href="/">Home</a>
     <%}%>
-    <%if(books.length) { %>
-    <% books.forEach(book => { %>
+    <%if(favouritesList.length) { %>
+    <% favouritesList.forEach(book => { %>
     <div class="book-div">
      <a target="_blank" href="/books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
      <a target="_blank" href="/books/<%= book.id%>"> <h2><%= book.title%></h2> </a>
@@ -31,21 +31,11 @@
                         <%= category%>
                       <%})%>
       </p>
-      <%if(user) { %>
-        <%if(user.favourites.includes(book.id)) { %>
-          <a href="/books/<%= book.id%>/favourite">remove from favourites</a>
-        <% } else { %>
-          <a href="/books/<%= book.id%>/favourite">add to favourites</a>
-  
-        <% }%>
-
-      <% } else { %>
-        <a href="/books/<%= book.id%>/favourite">add to favourites</a>
-      <% }%>
+          <a href="/books/<%= book.id%>/unfavourite">remove from favourites</a>
     </div>
     <%})%>
     <% } else { %>
-    <p>no books available</p>
+    <p>no books available in favourites!! Add some</p>
     <%}%>
   </body>
 </html>

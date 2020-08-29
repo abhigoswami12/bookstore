@@ -29,9 +29,25 @@
                     <a href="#">Place Order</a>
                 </div>
                 <div class="outer-col2-2">
+                    <% var sum = cart.booksId.reduce((acc, book) => acc + book.price, 0)%>
                     <p>price-details</p>
                     <p>price(<%= cart.booksId.length%>): 
-                        <span><%= cart.booksId.reduce((acc, book) => acc + book.price, 0)%></span></p>
+                        <span><%= sum %></span>
+                    </p>
+                    <p>
+                        Delivery Charge: 
+                        <%if(sum < 600) { %>
+                            <% var discount = 40%>
+                        <%} else { %>
+                            <% var discount = 0%>
+                        <%}%>
+                        <span><%= discount%></span>
+                    </p>
+                    <p>
+                        Total: 
+                        <span><%= sum+discount%></span>
+                    </p>
+                    
                 </div>
             </div>
         <% } else { %>

@@ -22,7 +22,8 @@ var userSchema = new Schema(
     },
     providers: [String],
     isAdmin: { type: Boolean, default: false },
-    cartId: {type: Schema.Types.ObjectId, ref: "Cart"}
+    cartId: {type: Schema.Types.ObjectId, ref: "Cart"},
+    favourites: [{ type: Schema.Types.ObjectId, ref: "Book" }]
   },
   { timestamps: true }
 );

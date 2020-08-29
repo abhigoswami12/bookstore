@@ -17,13 +17,14 @@
             <div class="book-div">
                 <a target="_blank" href="/admin//books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
                 <a target="_blank" href="/admin/books/<%= book.id%>"> <h2><%= book.title%></h2> </a>
-                 <p>by <%= book.author%></p>
+                <p>by <%= book.author%></p>
 
                 <p>categories: <%book.category.forEach(category => { %>
                     <%= category%>
                  <%})%></p>
-                     <a href="/admin/<%= book.id%>/edit">edit books</a>
-                     <a href="/admin/<%= book.id%>/delete">delete books</a>
+                
+                <a href="/admin/<%= book.id%>/edit">edit books</a>
+                <a href="/admin/<%= book.id%>/delete">delete books</a>
 
             </div>
         <%})%>
