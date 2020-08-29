@@ -20,7 +20,7 @@
         <a href="/admin">go to admin</a>
      <% }%>
     <%}%>
-    <%if(user) { %>
+    <%if(user && cart) { %>
         <a href="/carts/view-cart">Cart: <%= cart.itemsInCart%></a>
 
    <% } else { %>
@@ -35,7 +35,7 @@
             <div class="col1-2">
                 <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover">
                 <a href="">buy now</a>
-                <%if(user) { %>
+                <%if(user && cart) { %>
                     <%if(cart.booksId.map(id => id.toString()).includes(book.id)){ %>
                         <!-- <a href="/carts/<%= book.id%>">Remove from cart</a> -->
                         <a href="/carts/view-cart">Go to cart</a>

@@ -30,6 +30,8 @@
                 </div>
                 <div class="outer-col2-2">
                     <p>price-details</p>
+                    <p>price(<%= cart.booksId.length%>): 
+                        <span><%= cart.booksId.reduce((acc, book) => acc + book.price, 0)%></span></p>
                 </div>
             </div>
         <% } else { %>

@@ -8,8 +8,7 @@ var auth = require('../middlewares/auth')
 router.get('/view-cart',auth.verifyUserLogin, async (req, res, next) => {
     try {
         var cart = await Cart.findOne({userId: req.user.id}).populate('booksId').exec();
-        // if(cart.booksId.includes())
-        // console.log(cart)
+        console.log(cart)
         // console.log('CART', cart[4]);
         res.render('viewCart', { cart });
 
