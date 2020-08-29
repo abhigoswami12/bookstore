@@ -361,3 +361,47 @@ legend {
   height: 50px;
   border-radius: 50%;
 }
+
+//book-imgage 
+.book-img {
+  width: 100px;
+  height: 150px;
+}
+.book-div {
+  margin: 1rem, 2rem;
+  padding: 2rem;
+  border: 1px dashed #31296a;
+}
+
+//single-book
+
+.single-book-flex {
+  display: flex;
+  
+
+}
+
+.col1-2 {
+  width:25%;
+  padding: 2rem;
+}
+.col2-2 {
+  width: 70%;
+  padding: 2rem;
+}
+.outer-flex {
+  display: flex;
+}
+.cart-item-list {
+  border: 1px dashed #31296a;
+  padding: 2rem;
+  
+}
+.outer-col1-2 {
+  width: 70%
+}
+.outer-col2-2 {
+  width: 25%;
+  padding: 2rem;
+}
+

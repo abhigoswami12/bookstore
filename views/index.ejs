@@ -4,29 +4,34 @@
     <link rel='stylesheet' href='/stylesheets/css/style.css' />
   </head>
   <body>
+    
     <%if(!user) {%>
       <a href="/users/register">signup</a>
       <a href="/users/login">login</a>
 
     <%} else {%>
-      <%if(user.image) { %>
-        <img class="profile-img" src="/images/profiles/<%= user.image%>" alt="user-image">
-
-      <%}%>
-      <%if(user.google.image) { %>
-      <img class="profile-img" src="/images/profiles/<%= user.google.image%>" alt="user-image">
-      
-      <%}%>
-      <%if(user.github.image) { %>
-      <img class="profile-img" src="/images/profiles/<%= user.github.image%>" alt="user-image">
-      
-      <%}%>
+      <h2>hello, <%= user.name%></h2>
       <a href="/users/<%= user.id%>/edit-profile">edit profile</a>
       <a href="/users/logout">logout</a>
       <%if(user.isAdmin){ %>
         <a href="/admin">go to admin</a>
      <% }%>
-
+    <%}%>
+    <%if(books.length) { %>
+    <% books.forEach(book => { %>
+    <div class="book-div">
+     <a target="_blank" href="/books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
+     <a target="_blank" href="/books/<%= book.id%>"> <h2><%= book.title%></h2> </a>
+      <p>by <%= book.author%></p>
+      
+      <p>categories: <%book.category.forEach(category => { %>
+                        <%= category%>
+                      <%})%>
+      </p>
+    </div>
+    <%})%>
+    <% } else { %>
+    <p>no books available</p>
     <%}%>
   </body>
 </html>

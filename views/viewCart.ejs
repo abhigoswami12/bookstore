@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <%if(cart.booksId.length) { %>
+            <div class="outer-flex">
+                <div class="outer-col1-2">
+                    <%cart.booksId.forEach(book => { %>
+                        <div class="single-book-flex cart-item-list">
+                            <div class="col1-2">
+                                <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover">
+                            </div>
+                            <div class="col2-2">
+                                <h2>title: <%=book.title %></h2>
+                                <h3>author: <%=book.author %></h3>
+                                <h4>description: <%=book.description %></h4>
+                                <p>price: <%=book.price %></p>
+                                <a href="/carts/<%= book.id%>">Remove from cart</a>
+                            </div>
+                        </div>
+                    <%})%>
+                    <a href="#">Place Order</a>
+                </div>
+                <div class="outer-col2-2">
+                    <p>price-details</p>
+                </div>
+            </div>
+        <% } else { %>
+            <p>Awww!!!! No books in the cart.Let's go do some shopping</p>
+        <% }%>
+    </main>
+</body>
+</html>

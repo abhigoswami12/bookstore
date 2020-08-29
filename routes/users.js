@@ -5,6 +5,7 @@ var router = express.Router();
 // var profileImgPath = path.join(__dirname, "../" + "public/images/profiles")
 
 var User = require('../models/User');
+var Cart = require('../models/Cart');
 var auth = require('../middlewares/auth');
 
 //using multer to upload image
@@ -37,8 +38,6 @@ router.post('/register', async (req, res, next) => {
   // if (req.file && req.file.filename) {
   //   req.body.image = req.file.filename;
   // }
-  console.log('entered')
-  console.log("BODY", req.body)
   try {
     if(!req.body.name || !req.body.username) {
       req.flash('warn', 'All fields are required to be filled')
@@ -46,9 +45,7 @@ router.post('/register', async (req, res, next) => {
     }
     var email = req.body.email;
     var username = req.body.username;
-    console.log(username);
     var userWithUsername = await User.findOne({ username });
-    console.log(userWithUsername);
     if (userWithUsername) {
       req.flash("warn", "username already exists");
       return res.redirect("/users/register");
@@ -59,7 +56,14 @@ router.post('/register', async (req, res, next) => {
       req.flash('warn', 'Email already exists')
       return res.redirect('/users/register');
     }
-    await User.create(req.body);
+    var createdUser = await User.create(req.body);
+    
+    //creating cart and updating user with the cartId
+    var cart = {
+      userId: createdUser._id
+    }
+    var createdCart = await Cart.create(cart);
+    await User.findByIdAndUpdate(createdUser._id, { $set: {cartId: createdCart._id}}, {new: true});
     res.redirect('/users/login');
     
   } catch (error) {
@@ -91,6 +95,7 @@ router.post('/login', async (req, res, next) => {
       return res.redirect('/users/login');
     }
     req.session.userId = user.id;
+    req.session.isAdmin = user.isAdmin;
     res.redirect(req.session.returnsTo || '/');
     delete req.session.returnsTo;
   } catch (error) {

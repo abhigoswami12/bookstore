@@ -4,12 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/css/style.css">
     <title>Document</title>
 </head>
 <body>
+    <h3>Welcome <%= user.name%></h3>
+        <a href="/admin/new">add books</a>
+        <a href="/">back</a>
+    <a href="/users/logout">logout</a>
     <%if(books.length) { %>
         <% books.forEach(book => { %>
-            <h2><%= book.name%></h2>
+            <div class="book-div">
+                <a target="_blank" href="/admin//books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
+                <a target="_blank" href="/admin/books/<%= book.id%>"> <h2><%= book.title%></h2> </a>
+                 <p>by <%= book.author%></p>
+
+                <p>categories: <%book.category.forEach(category => { %>
+                    <%= category%>
+                 <%})%></p>
+                     <a href="/admin/<%= book.id%>/edit">edit books</a>
+                     <a href="/admin/<%= book.id%>/delete">delete books</a>
+
+            </div>
         <%})%>
     <% } else { %>
         <p>no books available</p>

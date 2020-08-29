@@ -7,11 +7,12 @@ var Schema = mongoose.Schema;
 var bookSchema = new Schema(
     {
         image: { type: String },
-        name: { type: String, required: true },
+        title: { type: String, required: true },
         author: { type: String, required: true },
         price: { type: Number, required: true },
-        dscription: { type: String},
-        Category: [{type: String }]
+        description: { type: String},
+        category: [{type: String }],
+        reviews: [{ type: Schema.Types.ObjectId, ref: "Review"}]
     },
     { timestamps: true }
 );

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+     <%if(!user) {%>
+      <a href="/users/register">signup</a>
+      <a href="/users/login">login</a>
+
+    <%} else {%>
+      <h2>hello, <%= user.name%></h2>
+      <a href="/users/<%= user.id%>/edit-profile">edit profile</a>
+      <a href="/users/logout">logout</a>
+      <%if(user.isAdmin){ %>
+        <a href="/admin">go to admin</a>
+     <% }%>
+    <%}%>
+    <%if(user) { %>
+        <a href="/carts/view-cart">Cart: <%= cart.itemsInCart%></a>
+
+   <% } else { %>
+        <a href="/carts/view-cart">Cart: <%= 0%></a>
+   <%}%>
+    <main>
+        <!-- flash message -->
+        <% if(warn) { %>
+            <p><%= warn %></p>
+        <% }%>
+        <div class="single-book-flex">
+            <div class="col1-2">
+                <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover">
+                <a href="">buy now</a>
+                <%if(user) { %>
+                    <%if(cart.booksId.map(id => id.toString()).includes(book.id)){ %>
+                        <!-- <a href="/carts/<%= book.id%>">Remove from cart</a> -->
+                        <a href="/carts/view-cart">Go to cart</a>
+    
+                    <%} else { %>
+                        <a href="/carts/<%= book.id%>">add to cart</a>
+                    <%}%>
+
+                <% } else { %>
+                    <a href="/carts/<%= book.id%>">add to cart</a>
+                <% }%>
+            </div>
+            <div class="col2-2">
+                <h2><%=book.title %></h2>
+                <h3><%=book.author %></h3>
+                <h4><%=book.description %></h4>
+                <p><%=book.price %></p>
+
+
+                <!-- reviews -->
+                <legend>Give your review</legend>
+                <form action="/books/<%= book.id %>/review" method="POST">
+                    <input type="text" name="content" placeholder="write review">
+                    <input type="submit" value="add review">
+                </form>
+
+                <!-- read all reviews -->
+                <%book.reviews.forEach(review => { %>
+                    <h4><%= review.content%></h4>
+                    <h6>by <%= review.author.name%> <span>created on <%= String(review.createdAt).slice(4, 10)%></span></h6>
+                    <% if(user) { %>
+                        <% if(review.author.id == user.id){ %>
+                            <a href="/reviews/<%= review.id%>/edit">edit review</a>
+                            <a href="/reviews/<%= review.id%>/delete">delete review</a>
+                        <% }%>
+                        <% if(user.isAdmin){ %>
+                            <a href="/reviews/<%= review.id%>/delete">delete review</a>
+                        <% } %>
+                   <% }%>
+                <% })%>
+            </div>
+        </div>
+
+
+    </main>
+</body>
+</html>

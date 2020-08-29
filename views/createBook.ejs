@@ -8,10 +8,12 @@
 </head>
 <body>
     <legend>Enter book details</legend>
-    <form action="/admin/new" method="POST">
-        <input type="text" name="name" id="" placeholder="name of the book">
+    <form action="/admin/new" method="POST" enctype="multipart/form-data">
+        <input type="file" name="avatar">
+        <input type="text" name="title" id="" placeholder="name of the book">
         <input type="text" name="author" id="" placeholder="author of the book">
         <input type="text" name="description" id="" placeholder="write something about the book">
+        <input type="text" name="category" id="" placeholder="categories">
         <input type="number" name="price" id="" placeholder="enter price">
         <input type="submit" name="" id="" value="enter book">
     </form>
