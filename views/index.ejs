@@ -20,6 +20,11 @@
      <% }%>
      <a href="/books/favourites">Go to favourites: <span><%= user.favourites.length%></span></a>
     <%}%>
+    <p>Sort by: </p>
+    <a href="/price-low-to-high">Price--Low-to-High</a>
+    <a href="/price-high-to-low">Price--High-to-Low</a>
+    <a href="/newest">Newest-First</a>
+
     <%if(books.length) { %>
     <% books.forEach(book => { %>
     <div class="book-div">
