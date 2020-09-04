@@ -77,6 +77,7 @@ router.get('/login', (req, res, next) => {
   res.render('createLoginForm', { warn })
 })
 router.post('/login', async (req, res, next) => {
+  
   var {email, password } = req.body;
   
   try {
@@ -87,6 +88,10 @@ router.post('/login', async (req, res, next) => {
     var user = await User.findOne({ email });
     if(!user) {
       req.flash('warn', '*Email address not registered!! Please enter valid email')
+      return res.redirect('/users/login');
+    }
+    if(user.isBlocked) {
+      req.flash('warn', '*You have been blocked by the Admin. Contact Admin!!')
       return res.redirect('/users/login');
     }
     var result = await user.validatePassword(password);

@@ -4,6 +4,9 @@ var multer = require("multer");
 var path = require('path');
 var auth = require('../middlewares/auth');
 var Book = require('../models/Book');
+var User = require('../models/User');
+var Review = require('../models/Review');
+var Cart = require('../models/Cart');
 
 var bookImgPath = path.join(__dirname, "../" + "public/images/books")
 
@@ -38,6 +41,27 @@ router.get('/', (req, res, next) => {
     Book.find({}, (err, books) => {
         res.render('listBooks', {books, warn})
     })
+})
+//go to dashboard
+router.get('/dashboard', auth.verifyAdminLogin, async (req, res, next) => {
+    var users = await User.find();
+    console.log(users)
+    res.render('usersList', { users });
+})
+//block a user 
+router.get('/dashboard/:userId/block', auth.verifyAdminLogin, async (req, res, next) => {
+    console.log(req.params.userId);
+    var userId = req.params.userId;
+    var user = await User.findOne({ _id: userId });
+    if(!user.isBlocked) {
+        user.isBlocked = true;
+        user.save();
+    } else {
+        user.isBlocked = false;
+        user.save();
+    }
+    console.log(user)
+    res.redirect('/admin/dashboard');
 })
 
 //read single book
@@ -108,11 +132,17 @@ router.post('/:id/edit',auth.verifyAdminLogin, upload.single('avatar'), async(re
     }
 })
 
-//delete article
+//delete book
 router.get('/:id/delete', auth.verifyAdminLogin, async (req, res, next) => {
     var bookId = req.params.id;
     try {
-        var deletedBook = await Book.findByIdAndDelete(bookId);
+        var book = await Book.findByIdAndDelete(bookId);
+        // console.log("book", book);
+        await Review.deleteMany({bookId: book._id});
+        // var user = await User.findById(req.user.id);
+        // console.log("user", user);
+        // var cart = await Cart.findById(user.cartId);
+        // console.log("cart",cart);
         res.redirect('/admin');
     } catch (error) {
         next(error);

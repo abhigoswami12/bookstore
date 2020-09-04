@@ -1,81 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/stylesheets/css/style.css">
-    <title>Document</title>
-</head>
+<%- include("headers")%>
 <body>
-     <%if(!user) {%>
-      <a href="/users/register">signup</a>
-      <a href="/users/login">login</a>
 
-    <%} else {%>
-      <h2>hello, <%= user.name%></h2>
-      <a href="/users/<%= user.id%>/edit-profile">edit profile</a>
-      <a href="/users/logout">logout</a>
-      <%if(user.isAdmin){ %>
-        <a href="/admin">go to admin</a>
-     <% }%>
-    <%}%>
-    <%if(user && cart) { %>
-        <a href="/carts/view-cart">Cart: <%= cart.itemsInCart%></a>
-
-   <% } else { %>
-        <a href="/carts/view-cart">Cart: <%= 0%></a>
-   <%}%>
     <main>
         <!-- flash message -->
         <% if(warn) { %>
             <p><%= warn %></p>
         <% }%>
-        <div class="single-book-flex">
-            <div class="col1-2">
-                <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover">
-                <a href="">buy now</a>
-                <%if(user && cart) { %>
-                    <%if(cart.booksId.map(id => id.toString()).includes(book.id)){ %>
-                        <!-- <a href="/carts/<%= book.id%>">Remove from cart</a> -->
-                        <a href="/carts/view-cart">Go to cart</a>
-    
-                    <%} else { %>
-                        <a href="/carts/<%= book.id%>">add to cart</a>
-                    <%}%>
-
-                <% } else { %>
-                    <a href="/carts/<%= book.id%>">add to cart</a>
-                <% }%>
+        <div class="flex-start wrapper">
+            <div class="col1-2 flex-column">
+                <div class="single-book-img">
+                    <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover">
+                    <div class="single-book-favourites">
+                        <div>
+                            <%if(user) { %>
+                            <%if(user.favourites.includes(book.id)) { %>
+                            <a href="/books/<%= book.id%>/favourite"><i title="Remove From Fvourites" class="filled-heart fas fa-heart"></i></a>
+                            <% } else { %>
+                            <a href="/books/<%= book.id%>/favourite"><i title="Add To Favourites" class="empty-heart far fa-heart"></i></a>
+                        
+                            <% }%>
+                        
+                            <% } else { %>
+                            <a href="/books/<%= book.id%>/favourite"><i title="Add To Favourites" class="empty-heart far fa-heart"></i></a>
+                            <% }%>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <%if(user && cart) { %>
+                        <%if(cart.booksId.map(id => id.toString()).includes(book.id)){ %>
+                            <!-- <a href="/carts/<%= book.id%>">Remove from cart</a> -->
+                            <a class="cart-button" href="/carts/view-cart">Go to cart</a>
+                            
+                        <%} else { %>
+                            <a class="cart-button" href="/carts/<%= book.id%>">add to cart</a>
+                            <%}%>
+                                
+                    <% } else { %>
+                        <a class="cart-button" href="/carts/<%= book.id%>">add to cart</a>
+                        <% }%>
+                    <a class="buy-button" href="">buy now</a>
+                </div>
             </div>
             <div class="col2-2">
-                <h2><%=book.title %></h2>
-                <h3><%=book.author %></h3>
-                <h4><%=book.description %></h4>
-                <p><%=book.price %></p>
+                <h2 class="single-book-title"><%=book.title %></h2>
+                <p class="single-book-price">Rs. <%=book.price %></p>
+                <div>
+                    <div class="flex single-book-details">
+                        <div class="single-col1-2">
+                            <h4>author:</h4>
+                        </div>
+                        <div class="single-col2-2">
+                            <h3 class="single-book-author"><a href="/?author=<%= book.author%>"><%=book.author %></h3></a>
+                        </div>
+                    </div>
+                    <div class="flex single-book-details">
+                        <div class="single-col1-2">
+                            <h4>Description:</h4>
+                        </div>
+                        <div class="single-col2-2">
+                            <h4 class="single-book-description"><%=book.description %></h4>
+                        </div>
+                    </div>
+                </div>
+                
 
 
                 <!-- reviews -->
-                <legend>Give your review</legend>
-                <form action="/books/<%= book.id %>/review" method="POST">
-                    <input type="text" name="content" placeholder="write review">
-                    <input type="submit" value="add review">
-                </form>
-
-                <!-- read all reviews -->
-                <%book.reviews.forEach(review => { %>
-                    <h4><%= review.content%></h4>
-                    <h6>by <%= review.author.name%> <span>created on <%= String(review.createdAt).slice(4, 10)%></span></h6>
-                    <% if(user) { %>
-                        <% if(review.author.id == user.id){ %>
-                            <a href="/reviews/<%= review.id%>/edit">edit review</a>
-                            <a href="/reviews/<%= review.id%>/delete">delete review</a>
-                        <% }%>
-                        <% if(user.isAdmin){ %>
-                            <a href="/reviews/<%= review.id%>/delete">delete review</a>
-                        <% } %>
-                   <% }%>
-                <% })%>
+                <div class="reviews-section">
+                    <div class="reviews-inputs">
+                        <legend>Give your review</legend>
+                        <form class="inp-review-form" action="/books/<%= book.id %>/review" method="POST">
+                            <div class="inp-review-form-content">
+                                <input class="inp-review-title" type="text" name="title" placeholder="write review title">
+                                <textarea class="inp-review-content" name="content" id="" cols="65" rows="10" placeholder="write review"></textarea></textarea>
+                            </div>
+                            <input class="inp-review-btn" type="submit" value="add review">
+                        </form>
+                    </div>
+    
+                    <!-- read all reviews -->
+                    <div class="reviews-display">
+                        <%book.reviews.forEach(review => { %>
+                            <div class="single-review header-flex">
+                                <div>
+                                    <h3 class="review-title"><%= review.title %></h3>
+                                    <h4 class="review-content"><%= review.content%></h4>
+                                    <div class="review-details">
+                                        <h6 class="review-author">by <%= review.author.name%></h6>
+                                        <h6 class="review-createdAt"><%= String(review.createdAt).slice(4, 15)%></h6> 
+                                    </div>
+                                </div>
+                                <div class="review-author-options">
+                                    <% if(user) { %>
+                                        <% if(review.author.id == user.id){ %>
+                                            <a class="review-edit" href="/reviews/<%= review.id%>/edit"><i title="Edit Review" class="far fa-edit"></i></a>
+                                            <a class="review-delete" href="/reviews/<%= review.id%>/delete"><i title="Delete Review" class="fas fa-trash-alt"></i></a>
+                                        <% }%>
+                                        <% if(user.isAdmin){ %>
+                                            <a class="review-delete" href="/reviews/<%= review.id%>/delete"><i title="Delete Review" class="fas fa-trash-alt"></i></a>
+                                        <% } %>
+                                   <% }%>
+                                </div>
+                            </div>
+                        <% })%>
+                    </div>
+                </div>
             </div>
         </div>
 

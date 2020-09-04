@@ -2,15 +2,21 @@ var express = require('express');
 var router = express.Router();
 var Cart = require('../models/Cart');
 var auth = require('../middlewares/auth')
+var User = require('../models/User');
 
 
 //get cart list
 router.get('/view-cart',auth.verifyUserLogin, async (req, res, next) => {
     try {
         var cart = await Cart.findOne({userId: req.user.id}).populate('booksId').exec();
-        console.log(cart)
+        console.log(cart);
+        if (req.user) {
+          var user = await User.findById(req.user._id)
+            .populate("cartId")
+            .exec();
+        }
         // console.log('CART', cart[4]);
-        res.render('viewCart', { cart });
+        res.render('viewCart', { cart, user });
 
     } catch (error) {
         next(error);

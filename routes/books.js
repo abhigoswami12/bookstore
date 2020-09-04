@@ -37,8 +37,12 @@ router.get('/:id', async (req, res, next) => {
         }
         // console.log('cart', cart)
         // console.log("BOOK",book.reviews[0]);
+        if (req.user) {
+            var user = await User.findById(req.user._id).populate('cartId').exec();
+
+        }
     
-        res.render('singleBook', { book, cart, warn });
+        res.render('singleBook', { book, cart, warn, user });
         
     } catch (error) {
         next(error)

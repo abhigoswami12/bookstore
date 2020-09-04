@@ -1,56 +1,103 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel='stylesheet' href='/stylesheets/css/style.css' />
-  </head>
+  <%- include("headers")%>
   <body>
-    
-    <%if(!user) {%>
-      <a href="/users/register">signup</a>
-      <a href="/users/login">login</a>
+    <main>
+      <div class="flex-start wrapper">
+        <div class="filters">
+          <!-- Filter -->
+          <div class="filter-details">
+            <p class="filter-by">Filter by: </p>
+            <div class="category-details">
+              <p class="category">Categories: </p>
+              <ul class="category-list">
+                <li>
+                  <a href="/?category=fiction">fiction</a>
+                </li>
+                <li>
+                  <a href="/?category=adventure">adventure</a>
+                </li>
+                <li>
+                  <a href="/?category=biopic">biopic</a>
+                </li>
+              </ul>
+            </div>
+            <div class="author-details">
+              <p class="author">author: </p>
+              <ul class="category-list">
+                <li>
+                  <a href="/?author=abhi">abhi</a>
+                </li>
+                <li>
+                  <a href="/?author=abhi1">abhi1</a>
+                </li>
+                <li>
+                  <a href="/?author=prashant">prashant</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Sort -->
+          <div class="sort-details">
+            <p class="sort-by">Sort by: </p>
+            <ul class="sort-list">
+              <li>
+                <a href="/?price=low-to-high">Price--Low-to-High</a>
+              </li>
+              <li>
+                <a href="/?price=high-to-low"">Price--High-to-Low</a>
+              </li>
+              <li>
+                <a href="/?price=newest">Newest-First</a>
+              </li>
+            </ul>
 
-
-    <%} else {%>
-      <h2>hello, <%= user.name%></h2>
-      <a href="/users/<%= user.id%>/edit-profile">edit profile</a>
-      <a href="/users/logout">logout</a>
-
-      <%if(user.isAdmin){ %>
-        <a href="/admin">go to admin</a>
-     <% }%>
-     <a href="/books/favourites">Go to favourites: <span><%= user.favourites.length%></span></a>
-    <%}%>
-    <p>Sort by: </p>
-    <a href="/price-low-to-high">Price--Low-to-High</a>
-    <a href="/price-high-to-low">Price--High-to-Low</a>
-    <a href="/newest">Newest-First</a>
-
-    <%if(books.length) { %>
-    <% books.forEach(book => { %>
-    <div class="book-div">
-     <a target="_blank" href="/books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
-     <a target="_blank" href="/books/<%= book.id%>"> <h2><%= book.title%></h2> </a>
-      <p>by <%= book.author%></p>
+          </div>
       
-      <p>categories: <%book.category.forEach(category => { %>
-                        <%= category%>
-                      <%})%>
-      </p>
-      <%if(user) { %>
-        <%if(user.favourites.includes(book.id)) { %>
-          <a href="/books/<%= book.id%>/favourite">remove from favourites</a>
-        <% } else { %>
-          <a href="/books/<%= book.id%>/favourite">add to favourites</a>
-  
-        <% }%>
+          
+        </div>
+        <div class="books">
+          <div class="flex-center">
+            <%if(books.length) { %>
+            <% books.forEach(book => { %>
+            <div class="book-div flex-column">
+              <div class="img">
+                <a target="_blank" href="/books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
+              </div>
+              <div class="details">
+                <a  target="_blank" href="/books/<%= book.id%>"> <h2 class="book-title"><%= book.title%></h2> </a>
+                 <p class="book-author">by <%= book.author%></p>
+                 
+                 <p class="categories"><%book.category.forEach(category => { %>
+                                   <%= category%>
+                                 <%})%>
+                 </p>
+                 <p  class="price">Rs. <%= book.price%></p>
+                 <div class="favourites">
+                   <%if(user) { %>
+                     <%if(user.favourites.includes(book.id)) { %>
+                       <a href="/books/<%= book.id%>/favourite"><i title="Remove From Fvourites" class="filled-heart fas fa-heart"></i></a>
+                     <% } else { %>
+                       <a href="/books/<%= book.id%>/favourite"><i title="Add To Favourites" class="empty-heart far fa-heart"></i></a>
+               
+                     <% }%>
+             
+                   <% } else { %>
+                     <a href="/books/<%= book.id%>/favourite"><i title="Add To Favourites" class="empty-heart far fa-heart"></i></a>
+                   <% }%>
 
-      <% } else { %>
-        <a href="/books/<%= book.id%>/favourite">add to favourites</a>
-      <% }%>
-    </div>
-    <%})%>
-    <% } else { %>
-    <p>no books available</p>
-    <%}%>
+                 </div>
+              </div>
+            </div>
+            <%})%>
+            <% } else { %>
+            <p>no books available</p>
+            <%}%>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </main>
   </body>
-</html>

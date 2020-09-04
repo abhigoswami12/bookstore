@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+   <main>
+        <a href="/admin">go to admin</a>
+       <p>total users: <%= users.length%></p>
+       <%if(users.length) { %>
+        <table>
+            <caption>List of Registered Users</caption>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Block/Unblock</th>
+                </tr>
+            </thead>
+            <%users.forEach(user => { %>
+                <tbody>
+                    <tr>
+                       <td><%= user.name %></td> 
+                       <td><%= user.email%></td>
+                       <% if(user.isBlocked) { %>
+                            <td><a href="/admin/dashboard/<%= user.id %>/block">Unblock</a></td>
+                       <% } else { %>
+                            <td><a href="/admin/dashboard/<%= user.id %>/block">Block</a></td>
+                       <% }%>
+                    </tr>
+                </tbody>
+                <!-- <div class="dashboard-flex-column">
+                    <div class="col">
+                        <%= user.name%>
+                    </div>
+                    <div class="col">
+                        <%= user.email%>
+                    </div>
+                    <div class="col">
+                        <a href="#">Block</a>
+                    </div>
+                </div> -->
+                <% })%>
+                
+            </table>
+           <% } else { %>
+                    <p>no users available</p>
+           <% }%>
+           
+   </main>
+</body>
+</html>

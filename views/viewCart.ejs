@@ -1,58 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/stylesheets/css/style.css">
-    <title>Document</title>
-</head>
+
+
+<%- include("headers")%>
 <body>
-    <main>
-        <%if(cart.booksId.length) { %>
-            <div class="outer-flex">
-                <div class="outer-col1-2">
-                    <%cart.booksId.forEach(book => { %>
-                        <div class="single-book-flex cart-item-list">
-                            <div class="col1-2">
-                                <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover">
+    <main class="cart">
+        <div class="cart-wrapper">
+            <%if(cart.booksId.length) { %>
+                <div class="whole-cart flex-start">
+                    <div class="outer-col1-2">
+                        <p class="cart-items-no">My Cart (<%= cart.booksId.length%>)</p>
+                        <%cart.booksId.forEach(book => { %>
+                            <div class="flex cart-item-list">
+                                <div class="col1-2">
+                                   <a href="/admin//books/<%= book.id%>"><img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"></a>
+                                </div>
+                                <div class="col2-2">
+                                   <a class="book-cart-title" href="/admin//books/<%= book.id%>"><h2><%=book.title %></h2></a>
+                                    <h3 class="book-cart-author">By <%=book.author %></h3>
+                                    
+                                    <!-- <h4>description: <%=book.description %></h4> -->
+                                    <p class="book-cart-price">Rs. <%=book.price %></p>
+                                    <a class="cart-button" href="/carts/<%= book.id%>">Remove from cart</a>
+                                </div>
                             </div>
-                            <div class="col2-2">
-                                <h2>title: <%=book.title %></h2>
-                                <h3>author: <%=book.author %></h3>
-                                <h4>description: <%=book.description %></h4>
-                                <p>price: <%=book.price %></p>
-                                <a href="/carts/<%= book.id%>">Remove from cart</a>
+                        <%})%>
+                    </div>
+                    <div class="outer-col2-2">
+                        <div class="price-card">
+                            <% var sum = cart.booksId.reduce((acc, book) => acc + book.price, 0)%>
+                            <p class="cart-price-details">price-details</p>
+                            <div class="cart-price-card">
+                                <div class="flex  cart-items-price">
+                                    <div class="price-card-col1">
+                                        <p>price(<%= cart.booksId.length%>) 
+                                    </div>
+                                    <div class="price-card-col2">
+                                        <p>Rs. <%= sum %></p>
+                                    </div>
+                                </div>
+                                <div class="flex delivery-charge">
+                                    <div class="price-card-col1">
+                                        <p>
+                                            Delivery Charges 
+                                        </p>
+                                    </div>
+                                    <div class="price-card-col2">
+                                        <%if(sum < 600) { %>
+                                            <% var discount = 40%>
+                                        <%} else { %>
+                                            <% var discount = 0%>
+                                        <%}%>
+                                        <p>Rs. <%= discount%></p>
+                                    </div>
+                                </div>
+                                <div class="flex total-price">
+                                    <div class="price-card-col1">
+                                        <p>
+                                            Total
+                                        </p>
+                                    </div>
+                                    <div class="price-card-col2">
+                                        <p class="total-amount">Rs. <%= sum+discount%></p>
+                                    </div>
+                                </div>
+                                <% if(sum+discount < 600) { %>
+                                    <p class="note">**Free Delivery on Purchase of Rs. 600 and Above</p>
+                                <% }%>
                             </div>
                         </div>
-                    <%})%>
-                    <a href="#">Place Order</a>
+                        <div class="cart-place-order">
+                            <a class="buy-button" href="#">Place Order</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="outer-col2-2">
-                    <% var sum = cart.booksId.reduce((acc, book) => acc + book.price, 0)%>
-                    <p>price-details</p>
-                    <p>price(<%= cart.booksId.length%>): 
-                        <span><%= sum %></span>
-                    </p>
-                    <p>
-                        Delivery Charge: 
-                        <%if(sum < 600) { %>
-                            <% var discount = 40%>
-                        <%} else { %>
-                            <% var discount = 0%>
-                        <%}%>
-                        <span><%= discount%></span>
-                    </p>
-                    <p>
-                        Total: 
-                        <span><%= sum+discount%></span>
-                    </p>
-                    
-                </div>
-            </div>
-        <% } else { %>
-            <p>Awww!!!! No books in the cart.Let's go do some shopping</p>
-        <% }%>
+            <% } else { %>
+                <p>Awww!!!! No books in the cart.Let's go do some shopping</p>
+            <% }%>
+        </div>
     </main>
 </body>
 </html>
