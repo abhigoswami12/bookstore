@@ -38,9 +38,9 @@
                         </li>
                         <li class="nav-item">
                             <%if(user && user.cartId) { %>
-                                <a href="/carts/view-cart"><i title="Go to Cart" class="cart fas fa-shopping-cart"></i> <%= user.cartId.itemsInCart%></a>
+                                <a href="/carts/view-cart"><i title="Go to Cart" class="cart-icon fas fa-shopping-cart"></i> <%= user.cartId.itemsInCart%></a>
                             <% } else { %>
-                                <a href="/carts/view-cart"><i title="Go to Cart" class="cart fas fa-shopping-cart"></i> <%= 0%></a>
+                                <a href="/carts/view-cart"><i title="Go to Cart" class="cart-icon fas fa-shopping-cart"></i> <%= 0%></a>
                             <%}%>
                         </li>
                         <li class="nav-item nav-last-item">
