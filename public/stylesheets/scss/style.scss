@@ -184,7 +184,8 @@ $blue: #2874F0;
   border: 1.5px solid $blue;
   outline: 0;
   &:hover {
-    color: $yellow;
+    // color: $yellow;
+    color: rgb(219, 218, 218)
   }
 }
 
@@ -613,6 +614,7 @@ th, td {
 .price {
   font-size: 1.2rem;
   font-weight: 600;
+  color: #4C8E3C;
 }
 .favourites {
   position: absolute;
@@ -870,7 +872,7 @@ th, td {
   border-top: 1px solid rgb(218, 216, 216);
   padding: 2rem;
   .cart-button {
-    padding: 1rem 2rem;
+    padding: 1rem 1.7rem;
   }
   // &:first-child {
   //    border-top: none;

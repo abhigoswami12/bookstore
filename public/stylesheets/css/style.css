@@ -164,7 +164,7 @@ a {
   border: 1.5px solid #2874F0;
   outline: 0; }
   .btn:hover {
-    color: #EEDC34; }
+    color: #dbdada; }
 
 .book-logo {
   width: 50px;
@@ -513,7 +513,8 @@ th, td {
 
 .price {
   font-size: 1.2rem;
-  font-weight: 600; }
+  font-weight: 600;
+  color: #4C8E3C; }
 
 .favourites {
   position: absolute;
@@ -715,7 +716,7 @@ th, td {
   border-top: 1px solid #dad8d8;
   padding: 2rem; }
   .cart-item-list .cart-button {
-    padding: 1rem 2rem; }
+    padding: 1rem 1.7rem; }
 
 .outer-col1-2 {
   margin-right: 1rem;
