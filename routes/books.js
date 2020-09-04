@@ -12,7 +12,11 @@ router.get('/favourites',auth.verifyUserLogin, async (req, res, next) => {
        var user =  await User.findOne({_id: req.user.id})
        console.log(user)
         var favouritesList = await Book.find({_id: { $in: user.favourites }});
-        res.render('listFavourites', { favouritesList });
+        if (req.user) {
+            var user = await User.findById(req.user._id).populate('cartId').exec();
+
+        }
+        res.render('listFavourites', { favouritesList, user });
     } catch (error) {
         next(error);
     }

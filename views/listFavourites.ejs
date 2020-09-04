@@ -1,41 +1,40 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel='stylesheet' href='/stylesheets/css/style.css' />
-  </head>
+  <%- include("headers")%>
   <body>
-    
-    <%if(!user) {%>
-      <a href="/users/register">signup</a>
-      <a href="/users/login">login</a>
-
-
-    <%} else {%>
-      <h2>hello, <%= user.name%></h2>
-      <a href="/users/<%= user.id%>/edit-profile">edit profile</a>
-      <a href="/users/logout">logout</a>
-
-      <%if(user.isAdmin){ %>
-        <a href="/admin">go to admin</a>
-     <% }%>
-     <a href="/">Home</a>
-    <%}%>
-    <%if(favouritesList.length) { %>
-    <% favouritesList.forEach(book => { %>
-    <div class="book-div">
-     <a target="_blank" href="/books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
-     <a target="_blank" href="/books/<%= book.id%>"> <h2><%= book.title%></h2> </a>
-      <p>by <%= book.author%></p>
-      
-      <p>categories: <%book.category.forEach(category => { %>
-                        <%= category%>
-                      <%})%>
-      </p>
-          <a href="/books/<%= book.id%>/unfavourite">remove from favourites</a>
+    <div class="favourites-list">
+      <div class="favourite-wrapper">
+        <div class="favourite-books">
+          <%if(favouritesList.length) { %>
+             <p class="cart-items-no">My Favourites (<%= favouritesList.length%>)</p>
+          <% favouritesList.forEach(book => { %>
+          <div class="favourite-book">
+            <div class="favourite-flex">
+              <div class="flex-start fav-book-with-details-col">
+                <div class="fav-book-col">
+                  <a target="_blank" href="/books/<%= book.id%>"> <img class="book-img" src="/images/books/<%= book.image%>" alt="book-cover"> </a>
+                </div>
+                <div class="fav-details-col">
+                  <a class="book-cart-title" target="_blank" href="/books/<%= book.id%>"> <h2><%= book.title%></h2> </a>
+                  <p class="book-cart-author">by <%= book.author%></p>
+                  
+                  <p class="book-cart-author">categories: <%book.category.forEach(category => { %>
+                                    <%= category%>
+                                  <%})%>
+                  </p>
+                  <p class="book-cart-price">Rs. <%=book.price %></p>
+                </div>
+              </div>
+              <div class="fav-remove-col">
+                <a class="delete-fav" href="/books/<%= book.id%>/unfavourite"><i title="Remove Frome Favourites" class="fas fa-trash-alt"></i></a>
+              </div>
+            </div>
+          </div>
+          <%})%>
+          <% } else { %>
+          <p>no books available in favourites!! Add some</p>
+          <%}%>
+  
+        </div>
+      </div>
     </div>
-    <%})%>
-    <% } else { %>
-    <p>no books available in favourites!! Add some</p>
-    <%}%>
   </body>
 </html>

@@ -523,6 +523,10 @@ th, td {
 .col1-2 {
   width: 38%; }
 
+.position {
+  position: sticky;
+  top: 2%; }
+
 .col2-2 {
   width: 58%;
   margin-left: 1rem; }
@@ -580,7 +584,8 @@ th, td {
 .single-book-price {
   font-weight: 600;
   font-size: 2rem;
-  padding: 2rem 0 1rem 0; }
+  padding: 1.5rem 0 0.7rem 0;
+  color: #4C8E3C; }
 
 .single-book-author {
   font-family: 'Mukta', sans-serif; }
@@ -614,9 +619,11 @@ th, td {
 
 .reviews-section {
   margin-top: 8rem;
-  border: 1px solid #e6e6e6; }
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.11); }
   .reviews-section legend {
     color: #5f5c5c;
+    color: #4C8E3C;
     font-size: 1.8rem; }
 
 .reviews-inputs {
@@ -702,11 +709,13 @@ th, td {
 .cart-wrapper {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 4rem 0; }
+  padding: 1rem 0 4rem 0; }
 
 .cart-item-list {
   border-top: 1px solid #dad8d8;
   padding: 2rem; }
+  .cart-item-list .cart-button {
+    padding: 1rem 2rem; }
 
 .outer-col1-2 {
   margin-right: 1rem;
@@ -715,23 +724,27 @@ th, td {
   color: black;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.11);
   border: 1px solid #dad8d8; }
-  .outer-col1-2 .book-cart-title {
-    display: inline-block;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-    color: black;
-    text-decoration: none; }
-    .outer-col1-2 .book-cart-title:hover {
-      color: #2874F0; }
-  .outer-col1-2 .book-cart-author {
-    font-size: 0.9rem;
-    color: #616060;
-    margin-bottom: 0.8rem; }
-  .outer-col1-2 .book-cart-price {
-    font-size: 1.7rem;
-    font-weight: 700;
-    margin-bottom: 0.8rem; }
+
+.book-cart-title {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: black;
+  text-decoration: none; }
+  .book-cart-title:hover {
+    color: #2874F0; }
+
+.book-cart-author {
+  font-size: 0.9rem;
+  color: #616060;
+  margin-bottom: 0.8rem; }
+
+.book-cart-price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: #4C8E3C; }
 
 .cart-items-no {
   padding: 1rem 2rem;
@@ -774,7 +787,7 @@ th, td {
   padding-top: 1.5rem; }
   .total-price p {
     font-weight: 700;
-    font-size: 1.4rem; }
+    font-size: 1.5rem; }
   .total-price .total-amount {
     color: #4C8E3C; }
 
@@ -789,3 +802,49 @@ th, td {
   display: flex;
   justify-content: flex-end;
   letter-spacing: 1.0px; }
+
+.favourites-list {
+  background: #F1F3F6; }
+
+.favourite-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 0; }
+
+.favourite-books {
+  background: white;
+  border: 1px solid #dad8d8;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.11); }
+  .favourite-books .cart-items-no {
+    border-bottom: 1px solid #dad8d8; }
+
+.favourite-book {
+  padding: 2rem;
+  border-bottom: 1px solid #dad8d8; }
+  .favourite-book .book-img {
+    width: 140px;
+    height: 190px; }
+  .favourite-book:hover .delete-fav {
+    display: inline-block;
+    color: #bd3434; }
+
+.fav-book-with-details-col {
+  width: 90%; }
+
+.fav-remove-col {
+  width: 10%; }
+
+.fav-book-col {
+  width: 35%; }
+
+.fav-details-col {
+  width: 65%; }
+  .fav-details-col .book-cart-price {
+    color: #4C8E3C; }
+
+.favourite-flex {
+  display: flex;
+  align-items: center; }
+
+.delete-fav {
+  display: none; }
