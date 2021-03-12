@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run css & nodemon ./bin/www",
+    "start": "npm run css & node ./bin/www",
     "css": "node-sass --watch public/stylesheets/scss -o public/stylesheets/css"
   },
   "dependencies": {
